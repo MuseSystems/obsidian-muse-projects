@@ -1,18 +1,19 @@
 import { Plugin } from 'obsidian';
 import { ClockStatus } from './clockStatus';
 import { ClockWatch } from './clockWatch';
+import { scheduleEnsureObjectIds } from './ensureObjectIds';
 import { runClockIn, runClockOut } from './clockFlow';
 import { runEditTime } from './editTimeModal';
-import { scheduleEnsureObjectIds } from './ensureObjectIds';
+import { registerFolderContextMenu } from './folderContextMenu';
 import { promptNewOrganization } from './newOrganizationFlow';
 import { runNewProjectFlow } from './newProjectFlow';
 import { runNewTaskFlow } from './newTaskFlow';
 import { documentFlowContextFromNote, runNewDocumentFlow } from './newDocumentFlow';
-import { runNewSubordinateFlow } from './newSubordinateFlow';
-import { SUBORDINATES } from './subordinates';
 import { runNewOrgResourceFlow } from './newOrgResourceFlow';
-import { ORG_RESOURCES } from './orgResources';
+import { runNewSubordinateFlow } from './newSubordinateFlow';
 import { runNewTodoFlow } from './newTodoFlow';
+import { ORG_RESOURCES } from './orgResources';
+import { SUBORDINATES } from './subordinates';
 import { ensureMsprjPropertyTypes } from './propertyTypes';
 import { runRepairReferences } from './repairReferences';
 import { installBundledTemplates, offerBundledTemplates } from './seedTemplates';
@@ -39,6 +40,7 @@ export default class MuseProjectsPlugin extends Plugin {
 		await ensureMsprjPropertyTypes(this.app);
 		scheduleEnsureObjectIds(this, () => this.settings.projectTemplatesPath);
 		startTaskListSync(this, () => this.settings.projectTemplatesPath);
+
 		this.addCommand({
 			id: 'new-organization',
 			name: 'New Organization',
@@ -52,6 +54,7 @@ export default class MuseProjectsPlugin extends Plugin {
 				});
 			},
 		});
+
 		this.addCommand({
 			id: 'new-project',
 			name: 'New Project',
@@ -59,6 +62,7 @@ export default class MuseProjectsPlugin extends Plugin {
 				void runNewProjectFlow(this);
 			},
 		});
+
 		this.addCommand({
 			id: 'new-task',
 			name: 'New Task',
@@ -66,6 +70,7 @@ export default class MuseProjectsPlugin extends Plugin {
 				void runNewTaskFlow(this);
 			},
 		});
+
 		this.addCommand({
 			id: 'new-todo',
 			name: 'New To-Do',
@@ -73,6 +78,7 @@ export default class MuseProjectsPlugin extends Plugin {
 				void runNewTodoFlow(this);
 			},
 		});
+
 		this.addCommand({
 			id: 'new-document',
 			name: 'New Document',
@@ -86,15 +92,7 @@ export default class MuseProjectsPlugin extends Plugin {
 				);
 			},
 		});
-		for (const kind of SUBORDINATES) {
-			this.addCommand({
-				id: `new-${kind.id}`,
-				name: `New ${kind.label}`,
-				callback: () => {
-					void runNewSubordinateFlow(this, kind.id);
-				},
-			});
-		}
+
 		for (const kind of ORG_RESOURCES) {
 			this.addCommand({
 				id: `new-${kind.id}`,
@@ -104,6 +102,17 @@ export default class MuseProjectsPlugin extends Plugin {
 				},
 			});
 		}
+
+		for (const kind of SUBORDINATES) {
+			this.addCommand({
+				id: `new-${kind.id}`,
+				name: `New ${kind.label}`,
+				callback: () => {
+					void runNewSubordinateFlow(this, kind.id);
+				},
+			});
+		}
+
 		this.addCommand({
 			id: 'install-templates',
 			name: 'Install starting templates',
@@ -111,6 +120,7 @@ export default class MuseProjectsPlugin extends Plugin {
 				void installBundledTemplates(this);
 			},
 		});
+
 		this.addCommand({
 			id: 'repair-references',
 			name: 'Repair references',
@@ -118,6 +128,7 @@ export default class MuseProjectsPlugin extends Plugin {
 				void runRepairReferences(this.app, this.settings.projectTemplatesPath);
 			},
 		});
+
 		this.addCommand({
 			id: 'clock-in',
 			name: 'Clock in',
@@ -125,6 +136,7 @@ export default class MuseProjectsPlugin extends Plugin {
 				void runClockIn(this);
 			},
 		});
+
 		this.addCommand({
 			id: 'clock-out',
 			name: 'Clock out',
@@ -132,6 +144,7 @@ export default class MuseProjectsPlugin extends Plugin {
 				void runClockOut(this);
 			},
 		});
+
 		this.addCommand({
 			id: 'edit-time',
 			name: 'Edit time',
@@ -139,6 +152,8 @@ export default class MuseProjectsPlugin extends Plugin {
 				void runEditTime(this);
 			},
 		});
+
+		registerFolderContextMenu(this);
 		this.clockWatch = new ClockWatch(this);
 		new ClockStatus(this);
 		this.taskHost = new TaskHost(this);
