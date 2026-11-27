@@ -24,6 +24,8 @@ import {
 import { startTaskListSync } from './taskListSync';
 import { TaskHost } from './taskSurface';
 import { TASK_CARDS_VIEW, TaskCardsBasesView } from './taskCardsView';
+import { TIME_REPORT_LANGUAGE } from './timeReport';
+import { TimeReportBlock } from './timeReportBlock';
 
 export default class MuseProjectsPlugin extends Plugin {
 	settings!: MuseProjectsSettings;
@@ -146,6 +148,9 @@ export default class MuseProjectsPlugin extends Plugin {
 			name: 'Task cards',
 			icon: 'layout-grid',
 			factory: (controller, containerEl) => new TaskCardsBasesView(controller, containerEl, this),
+		});
+		this.registerMarkdownCodeBlockProcessor(TIME_REPORT_LANGUAGE, (source, el, ctx) => {
+			ctx.addChild(new TimeReportBlock(el, source, ctx, this));
 		});
 		this.app.workspace.onLayoutReady(() => {
 			void offerBundledTemplates(this);

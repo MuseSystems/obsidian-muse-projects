@@ -316,6 +316,129 @@ button.msprj-task-cards-file:hover {
 	text-decoration: underline;
 }
 
+/* Organization time report.
+   Defaults follow the production report: peach section titles, teal day and
+   project titles, and an open table (header rule, row rules, no cell boxes).
+   Override the variables on .msprj-time-report. Classes: [data-section],
+   .msprj-time-report-title, .msprj-time-report-group, .msprj-time-report-table,
+   .msprj-time-report-count, .msprj-time-report-empty, .msprj-time-report-skip. */
+.msprj-time-report {
+	--msprj-report-title-color: #d9730d;
+	--msprj-report-group-color: #0f7b7b;
+	--msprj-report-header-rule: var(--text-faint);
+	--msprj-report-row-rule: var(--background-modifier-border);
+	margin: 0.6em 0 1em;
+	padding: 0;
+	border: 0;
+	background: transparent;
+	color: var(--text-normal);
+	font-family: var(--font-text);
+	font-size: var(--font-text-size);
+	line-height: var(--line-height-normal);
+}
+
+.theme-dark .msprj-time-report {
+	--msprj-report-title-color: #fab387;
+	--msprj-report-group-color: #94e2d5;
+}
+
+.msprj-time-report ~ .msprj-time-report {
+	margin-top: 1.4em;
+	padding-top: 0.85em;
+	border-top: var(--hr-thickness, 1px) solid var(--background-modifier-border);
+}
+
+.msprj-time-report-title,
+.msprj-time-report-group {
+	font-family: inherit;
+	font-weight: 650;
+	line-height: 1.25;
+	letter-spacing: 0;
+}
+
+.msprj-time-report-title {
+	margin: 0 0 0.45em;
+	color: var(--msprj-report-title-color);
+	font-size: 1.35em;
+}
+
+.msprj-time-report-group {
+	margin: 1.05em 0 0.2em;
+	color: var(--msprj-report-group-color);
+	font-size: 1.12em;
+}
+
+.msprj-time-report .msprj-time-report-table {
+	width: 100%;
+	margin: 0.15em 0 0.35em;
+	border: 0;
+	border-collapse: collapse;
+	font-size: inherit;
+}
+
+.msprj-time-report .msprj-time-report-table th,
+.msprj-time-report .msprj-time-report-table td {
+	border: 0;
+	background: transparent;
+	padding: 0.28em 0.9em 0.28em 0;
+	text-align: left;
+	vertical-align: baseline;
+	font-weight: 400;
+}
+
+.msprj-time-report .msprj-time-report-table th {
+	border-bottom: 1px solid var(--msprj-report-header-rule);
+	padding-bottom: 0.4em;
+	font-weight: 700;
+}
+
+.msprj-time-report .msprj-time-report-table td {
+	border-bottom: 1px solid var(--msprj-report-row-rule);
+}
+
+.msprj-time-report .msprj-time-report-table tbody tr:last-child td {
+	border-bottom: 0;
+}
+
+.msprj-time-report .msprj-time-report-table tbody tr:hover td {
+	background: var(--table-row-background-hover, var(--background-modifier-hover));
+}
+
+.msprj-time-report[data-section='last-period'] .msprj-time-report-table th:nth-child(-n + 4),
+.msprj-time-report[data-section='last-period'] .msprj-time-report-table td:nth-child(-n + 4) {
+	white-space: nowrap;
+}
+
+.msprj-time-report[data-section='last-period'] .msprj-time-report-table th:nth-child(n + 5),
+.msprj-time-report[data-section='last-period'] .msprj-time-report-table td:nth-child(n + 5) {
+	overflow-wrap: break-word;
+}
+
+.msprj-time-report[data-section='active-projects'] .msprj-time-report-table th:nth-child(1),
+.msprj-time-report[data-section='active-projects'] .msprj-time-report-table td:nth-child(1),
+.msprj-time-report[data-section='active-projects'] .msprj-time-report-table th:nth-child(3),
+.msprj-time-report[data-section='active-projects'] .msprj-time-report-table td:nth-child(3),
+.msprj-time-report[data-section='active-projects'] .msprj-time-report-table th:nth-child(4),
+.msprj-time-report[data-section='active-projects'] .msprj-time-report-table td:nth-child(4) {
+	white-space: nowrap;
+}
+
+.msprj-time-report[data-section='active-projects'] .msprj-time-report-table td:nth-child(5) {
+	overflow-wrap: break-word;
+}
+
+.msprj-time-report-count {
+	margin-left: 0;
+	color: inherit;
+	font-weight: inherit;
+}
+
+.msprj-time-report-empty,
+.msprj-time-report-skip {
+	margin: 0.35em 0;
+	color: var(--text-muted);
+}
+
 /* Create dialogs. Inputs stay Obsidian Setting controls.
    A snippet targets .msprj-form. */
 .modal.msprj-form {
