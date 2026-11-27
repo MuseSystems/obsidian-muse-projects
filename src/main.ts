@@ -1,5 +1,6 @@
 import { Plugin } from 'obsidian';
 import { scheduleEnsureObjectIds } from './ensureObjectIds';
+import { promptNewOrganization } from './newOrganizationFlow';
 import { ensureMsprjPropertyTypes } from './propertyTypes';
 import { installBundledTemplates, offerBundledTemplates } from './seedTemplates';
 import {
@@ -17,6 +18,19 @@ export default class MuseProjectsPlugin extends Plugin {
 		this.addSettingTab(new MuseProjectsSettingTab(this.app, this));
 		await ensureMsprjPropertyTypes(this.app);
 		scheduleEnsureObjectIds(this, () => this.settings.projectTemplatesPath);
+		this.addCommand({
+			id: 'new-organization',
+			name: 'New Organization',
+			callback: () => {
+				void promptNewOrganization(this.app, {
+					openNote: true,
+					templatesPath: this.settings.projectTemplatesPath,
+					weekStart: this.settings.weekStart,
+					durationFormat: this.settings.durationFormat,
+					clockFormat: this.settings.clockFormat,
+				});
+			},
+		});
 		this.addCommand({
 			id: 'install-templates',
 			name: 'Install starting templates',
