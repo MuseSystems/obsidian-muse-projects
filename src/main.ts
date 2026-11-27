@@ -6,6 +6,8 @@ import { runNewTaskFlow } from './newTaskFlow';
 import { documentFlowContextFromNote, runNewDocumentFlow } from './newDocumentFlow';
 import { runNewSubordinateFlow } from './newSubordinateFlow';
 import { SUBORDINATES } from './subordinates';
+import { runNewOrgResourceFlow } from './newOrgResourceFlow';
+import { ORG_RESOURCES } from './orgResources';
 import { runNewTodoFlow } from './newTodoFlow';
 import { ensureMsprjPropertyTypes } from './propertyTypes';
 import { runRepairReferences } from './repairReferences';
@@ -80,6 +82,15 @@ export default class MuseProjectsPlugin extends Plugin {
 				name: `New ${kind.label}`,
 				callback: () => {
 					void runNewSubordinateFlow(this, kind.id);
+				},
+			});
+		}
+		for (const kind of ORG_RESOURCES) {
+			this.addCommand({
+				id: `new-${kind.id}`,
+				name: `New ${kind.label}`,
+				callback: () => {
+					void runNewOrgResourceFlow(this, kind.id);
 				},
 			});
 		}
