@@ -1,4 +1,5 @@
 import { Plugin } from 'obsidian';
+import { scheduleEnsureObjectIds } from './ensureObjectIds';
 import { ensureMsprjPropertyTypes } from './propertyTypes';
 import { installBundledTemplates, offerBundledTemplates } from './seedTemplates';
 import {
@@ -15,6 +16,7 @@ export default class MuseProjectsPlugin extends Plugin {
 		await this.loadSettings();
 		this.addSettingTab(new MuseProjectsSettingTab(this.app, this));
 		await ensureMsprjPropertyTypes(this.app);
+		scheduleEnsureObjectIds(this, () => this.settings.projectTemplatesPath);
 		this.addCommand({
 			id: 'install-templates',
 			name: 'Install starting templates',
