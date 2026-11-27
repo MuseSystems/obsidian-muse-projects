@@ -1,0 +1,229 @@
+/* Create dialogs. Inputs stay Obsidian Setting controls.
+   A snippet targets .msprj-form. */
+.modal.msprj-form {
+	display: flex;
+	flex-direction: column;
+	width: min(34rem, 92vw);
+	max-height: 85vh;
+}
+
+.modal.msprj-form .modal-content {
+	display: flex;
+	flex-direction: column;
+	flex: 1 1 auto;
+	min-height: 0;
+	overflow: hidden;
+	padding-bottom: var(--size-4-1);
+}
+
+.msprj-form-body {
+	flex: 1 1 auto;
+	min-width: 0;
+	min-height: 0;
+	overflow-x: hidden;
+	overflow-y: auto;
+	/* Focus rings are a 3px shadow. The scrollport clips them unless the
+	   fields sit inside the clip edge. */
+	padding: var(--size-4-1);
+}
+
+.msprj-form-context {
+	margin: 0 0 var(--size-4-2);
+	color: var(--text-muted);
+	font-size: var(--font-ui-small);
+}
+
+.msprj-form-title {
+	box-sizing: border-box;
+	width: 100%;
+	margin: 0 0 var(--size-4-3);
+	padding: var(--size-4-1) var(--size-4-2);
+	border: none;
+	background: transparent;
+	color: var(--text-normal);
+	font-family: inherit;
+	font-size: var(--font-ui-large);
+	font-weight: var(--font-medium);
+	line-height: 1.4;
+}
+
+.msprj-form-title::placeholder {
+	color: var(--text-muted);
+	font-weight: var(--font-normal);
+}
+
+.msprj-form-title:focus {
+	outline: none;
+	border-radius: var(--radius-s);
+	background: var(--background-modifier-hover);
+}
+
+.msprj-form-section {
+	margin: var(--size-4-4) 0 var(--size-2-2);
+	color: var(--text-muted);
+	font-size: var(--font-ui-smaller);
+	font-weight: var(--font-semibold);
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+}
+
+.msprj-form-title + .msprj-form-section {
+	margin-top: 0;
+}
+
+.modal.msprj-form .setting-item {
+	display: grid;
+	grid-template-columns: minmax(9rem, 12rem) minmax(0, 1fr);
+	align-items: center;
+	gap: 0 var(--size-4-3);
+	border: none;
+	padding: var(--size-2-2) 0;
+}
+
+.modal.msprj-form .setting-item-info {
+	margin: 0;
+	min-width: 0;
+}
+
+.modal.msprj-form .setting-item-name {
+	font-size: var(--font-ui-small);
+	font-weight: var(--font-semibold);
+	color: var(--text-muted);
+}
+
+.modal.msprj-form .setting-item-description {
+	font-size: var(--font-ui-smaller);
+	color: var(--text-faint);
+}
+
+.modal.msprj-form .setting-item-control {
+	justify-content: flex-start;
+	min-width: 0;
+}
+
+.modal.msprj-form .setting-item-control input[type='text'],
+.modal.msprj-form .setting-item-control select.dropdown:not(.is-measuring) {
+	flex: 1 1 auto;
+	width: 100%;
+	min-width: 0;
+	max-width: 100%;
+}
+
+/* Obsidian sizes a dropdown from a hidden measuring select. Leave that
+   select alone. The visible one fills its cell, including in the report row,
+   where the option text is wider than the column. */
+.modal.msprj-form .msprj-form-row {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	align-items: start;
+	gap: 0 var(--size-4-3);
+	min-width: 0;
+	max-width: 100%;
+}
+
+/* Modal setting rows give the first and last item different padding and a
+   top rule. These three fields share one row, so that offset has to go. */
+.modal.msprj-form .msprj-form-row > .setting-item,
+.modal.msprj-form .msprj-form-row > .setting-item:first-child,
+.modal.msprj-form .msprj-form-row > .setting-item:last-child {
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	grid-template-columns: none;
+	width: auto;
+	min-width: 0;
+	max-width: 100%;
+	gap: var(--size-2-2);
+	margin: 0;
+	padding: 0;
+	border: none;
+	border-radius: 0;
+	background: none;
+}
+
+.modal.msprj-form .msprj-form-row > .setting-item > .setting-item-info {
+	margin-inline-end: 0;
+}
+
+.modal.msprj-form .msprj-form-row .setting-item-control {
+	width: 100%;
+	min-width: 0;
+	max-width: 100%;
+}
+
+.modal.msprj-form .msprj-form-row select.dropdown:not(.is-measuring) {
+	width: 100%;
+	min-width: 0;
+	max-width: 100%;
+	field-sizing: fixed;
+}
+
+.modal.msprj-form .modal-button-container {
+	flex-shrink: 0;
+	margin-top: var(--size-4-3);
+	margin-inline: var(--size-4-1);
+	padding-top: var(--size-4-3);
+	border-top: 1px solid var(--background-modifier-border);
+}
+
+.modal.msprj-form .msprj-form-row.is-single {
+	grid-template-columns: 1fr;
+}
+
+.modal.msprj-form.msprj-time {
+	width: min(40rem, 92vw);
+}
+
+.msprj-time-empty {
+	margin: 0;
+	color: var(--text-muted);
+}
+
+.msprj-time-interval + .msprj-time-interval {
+	margin-top: var(--size-4-4);
+	padding-top: var(--size-4-3);
+	border-top: 1px solid var(--background-modifier-border);
+}
+
+.msprj-time-interval-head {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--size-4-2);
+	margin-bottom: var(--size-2-2);
+}
+
+.msprj-time-interval-title {
+	color: var(--text-normal);
+	font-weight: var(--font-medium);
+}
+
+.msprj-time-stamp-label {
+	margin: var(--size-4-2) 0 var(--size-2-1);
+	color: var(--text-muted);
+	font-size: var(--font-ui-smaller);
+	font-weight: var(--font-semibold);
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+}
+
+.msprj-time-interval-head + .msprj-time-stamp-label {
+	margin-top: 0;
+}
+
+.msprj-time-open {
+	margin: 0 0 var(--size-2-2);
+	color: var(--text-muted);
+	font-size: var(--font-ui-small);
+}
+
+.modal.msprj-form .modal-button-container .msprj-time-add {
+	margin-inline-end: auto;
+}
+
+@media (max-width: 520px) {
+	.modal.msprj-form .msprj-form-row {
+		grid-template-columns: 1fr;
+	}
+}
+
