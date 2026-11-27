@@ -1,0 +1,3 @@
+# Notes
+
+{{msprj_title}}

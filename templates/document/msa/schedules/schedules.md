@@ -1,0 +1,3 @@
+# Schedules
+
+{{msprj_title}}

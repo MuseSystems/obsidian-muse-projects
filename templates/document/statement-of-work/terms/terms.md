@@ -1,0 +1,3 @@
+# Terms
+
+{{msprj_title}}

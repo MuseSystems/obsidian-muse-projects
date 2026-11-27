@@ -2,6 +2,9 @@ import { Plugin } from 'obsidian';
 import { scheduleEnsureObjectIds } from './ensureObjectIds';
 import { promptNewOrganization } from './newOrganizationFlow';
 import { runNewProjectFlow } from './newProjectFlow';
+import { documentFlowContextFromNote, runNewDocumentFlow } from './newDocumentFlow';
+import { runNewSubordinateFlow } from './newSubordinateFlow';
+import { SUBORDINATES } from './subordinates';
 import { ensureMsprjPropertyTypes } from './propertyTypes';
 import { installBundledTemplates, offerBundledTemplates } from './seedTemplates';
 import {
@@ -39,6 +42,28 @@ export default class MuseProjectsPlugin extends Plugin {
 				void runNewProjectFlow(this);
 			},
 		});
+		this.addCommand({
+			id: 'new-document',
+			name: 'New Document',
+			callback: () => {
+				const file = this.app.workspace.getActiveFile();
+				const templatesPath = this.settings.projectTemplatesPath;
+				void runNewDocumentFlow(
+					this.app,
+					templatesPath,
+					file ? documentFlowContextFromNote(this.app, file, templatesPath) : {},
+				);
+			},
+		});
+		for (const kind of SUBORDINATES) {
+			this.addCommand({
+				id: `new-${kind.id}`,
+				name: `New ${kind.label}`,
+				callback: () => {
+					void runNewSubordinateFlow(this, kind.id);
+				},
+			});
+		}
 		this.addCommand({
 			id: 'install-templates',
 			name: 'Install starting templates',
