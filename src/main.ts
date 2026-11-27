@@ -7,6 +7,7 @@ import { documentFlowContextFromNote, runNewDocumentFlow } from './newDocumentFl
 import { runNewSubordinateFlow } from './newSubordinateFlow';
 import { SUBORDINATES } from './subordinates';
 import { ensureMsprjPropertyTypes } from './propertyTypes';
+import { runRepairReferences } from './repairReferences';
 import { installBundledTemplates, offerBundledTemplates } from './seedTemplates';
 import {
 	MuseProjectsSettings,
@@ -79,6 +80,13 @@ export default class MuseProjectsPlugin extends Plugin {
 			name: 'Install starting templates',
 			callback: () => {
 				void installBundledTemplates(this);
+			},
+		});
+		this.addCommand({
+			id: 'repair-references',
+			name: 'Repair references',
+			callback: () => {
+				void runRepairReferences(this.app, this.settings.projectTemplatesPath);
 			},
 		});
 		this.app.workspace.onLayoutReady(() => {
