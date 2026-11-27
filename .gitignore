@@ -1,0 +1,18 @@
+# npm
+node_modules
+
+# local build leftovers; main.js stays in the tree for BRAT
+*.map
+tests/.out
+
+# Obsidian plugin data
+data.json
+
+# editor
+.vscode
+.idea
+*.iml
+.DS_Store
+
+# local development notes
+dev-notes/

@@ -1,0 +1,31 @@
+{
+	"name": "muse-projects",
+	"version": "0.1.0",
+	"description": "Muse Projects — Obsidian plugin for projects, tasks, and productivity workflows (Muse Systems).",
+	"main": "main.js",
+	"type": "module",
+	"scripts": {
+		"dev": "node esbuild.config.mjs",
+		"build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production",
+		"test": "tsc -noEmit -skipLibCheck && node scripts/test.mjs",
+		"version": "node version-bump.mjs"
+	},
+	"keywords": [
+		"obsidian",
+		"obsidian-plugin",
+		"muse-systems"
+	],
+	"author": "Muse Systems",
+	"license": "Apache-2.0",
+	"private": true,
+	"devDependencies": {
+		"@types/node": "^22.15.17",
+		"esbuild": "0.25.5",
+		"obsidian": "1.14.4",
+		"typescript": "^5.8.3",
+		"yaml": "2.9.1"
+	},
+	"allowScripts": {
+		"esbuild@0.25.5": true
+	}
+}

@@ -1,0 +1,10 @@
+{
+	"id": "muse-projects",
+	"name": "Muse Projects",
+	"version": "0.1.0",
+	"minAppVersion": "1.15.0",
+	"description": "Projects, tasks, and related productivity workflows for Obsidian (Muse Systems).",
+	"author": "Muse Systems",
+	"authorUrl": "https://muse.systems",
+	"isDesktopOnly": false
+}
