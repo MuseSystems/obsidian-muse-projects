@@ -6,6 +6,7 @@ import { runNewTaskFlow } from './newTaskFlow';
 import { documentFlowContextFromNote, runNewDocumentFlow } from './newDocumentFlow';
 import { runNewSubordinateFlow } from './newSubordinateFlow';
 import { SUBORDINATES } from './subordinates';
+import { runNewTodoFlow } from './newTodoFlow';
 import { ensureMsprjPropertyTypes } from './propertyTypes';
 import { runRepairReferences } from './repairReferences';
 import { installBundledTemplates, offerBundledTemplates } from './seedTemplates';
@@ -51,6 +52,13 @@ export default class MuseProjectsPlugin extends Plugin {
 			name: 'New Task',
 			callback: () => {
 				void runNewTaskFlow(this);
+			},
+		});
+		this.addCommand({
+			id: 'new-todo',
+			name: 'New To-Do',
+			callback: () => {
+				void runNewTodoFlow(this);
 			},
 		});
 		this.addCommand({
