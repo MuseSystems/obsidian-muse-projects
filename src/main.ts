@@ -2,6 +2,7 @@ import { Plugin } from 'obsidian';
 import { scheduleEnsureObjectIds } from './ensureObjectIds';
 import { promptNewOrganization } from './newOrganizationFlow';
 import { runNewProjectFlow } from './newProjectFlow';
+import { runNewTaskFlow } from './newTaskFlow';
 import { documentFlowContextFromNote, runNewDocumentFlow } from './newDocumentFlow';
 import { runNewSubordinateFlow } from './newSubordinateFlow';
 import { SUBORDINATES } from './subordinates';
@@ -12,6 +13,7 @@ import {
 	MuseProjectsSettingTab,
 	normalizeSettings,
 } from './settings';
+import { startTaskListSync } from './taskListSync';
 
 export default class MuseProjectsPlugin extends Plugin {
 	settings!: MuseProjectsSettings;
@@ -22,6 +24,7 @@ export default class MuseProjectsPlugin extends Plugin {
 		this.addSettingTab(new MuseProjectsSettingTab(this.app, this));
 		await ensureMsprjPropertyTypes(this.app);
 		scheduleEnsureObjectIds(this, () => this.settings.projectTemplatesPath);
+		startTaskListSync(this, () => this.settings.projectTemplatesPath);
 		this.addCommand({
 			id: 'new-organization',
 			name: 'New Organization',
@@ -40,6 +43,13 @@ export default class MuseProjectsPlugin extends Plugin {
 			name: 'New Project',
 			callback: () => {
 				void runNewProjectFlow(this);
+			},
+		});
+		this.addCommand({
+			id: 'new-task',
+			name: 'New Task',
+			callback: () => {
+				void runNewTaskFlow(this);
 			},
 		});
 		this.addCommand({
