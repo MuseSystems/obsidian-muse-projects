@@ -1,6 +1,7 @@
 import { Plugin } from 'obsidian';
 import { scheduleEnsureObjectIds } from './ensureObjectIds';
 import { promptNewOrganization } from './newOrganizationFlow';
+import { runNewProjectFlow } from './newProjectFlow';
 import { ensureMsprjPropertyTypes } from './propertyTypes';
 import { installBundledTemplates, offerBundledTemplates } from './seedTemplates';
 import {
@@ -29,6 +30,13 @@ export default class MuseProjectsPlugin extends Plugin {
 					durationFormat: this.settings.durationFormat,
 					clockFormat: this.settings.clockFormat,
 				});
+			},
+		});
+		this.addCommand({
+			id: 'new-project',
+			name: 'New Project',
+			callback: () => {
+				void runNewProjectFlow(this);
 			},
 		});
 		this.addCommand({
