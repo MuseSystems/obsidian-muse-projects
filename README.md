@@ -59,7 +59,7 @@ Install with [BRAT](https://github.com/TfTHacker/obsidian42-brat).
 4. Choose the latest release, or one release tag to stay on that tag. **Add Plugin**.
 5. In Community plugins, refresh the list if **Muse Projects** is not listed, then enable it.
 
-BRAT copies `manifest.json`, `main.js`, and `styles.css` from that GitHub release into the vault. The manifest `version` is `0.1.0`. The release tag is `v0.1.0`. BRAT settings can change the tracked release later.
+BRAT copies `manifest.json`, `main.js`, and `styles.css` from that GitHub release into the vault. The manifest `version` is the release number, such as `0.1.1`. The GitHub tag is that number with a `v` prefix, such as `v0.1.1`. BRAT settings can change the tracked release later.
 
 On first load, if **Templates path** is empty and install was not skipped earlier, the plugin asks for a folder. **Install** writes the starting templates into that folder and saves the path. **Not now** leaves the built-in notes. Install later with **Settings → Muse Projects → Install starting templates**, or the command **Install starting templates**.
 

@@ -1,6 +1,6 @@
 {
 	"name": "muse-projects",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"description": "Muse Projects — Obsidian plugin for projects, tasks, and productivity workflows (Muse Systems).",
 	"main": "main.js",
 	"type": "module",
