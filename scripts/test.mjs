@@ -1,20 +1,17 @@
 import { builtinModules } from 'node:module';
-import { existsSync, readdirSync, rmSync } from 'node:fs';
+import { readdirSync, rmSync } from 'node:fs';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import esbuild from 'esbuild';
+import { writeBundledTemplates } from './bundle-templates.mjs';
+
+writeBundledTemplates();
+
 const testsDir = 'tests';
 const outdir = 'tests/.out';
-if (!existsSync(testsDir)) {
-	process.exit(0);
-}
 const entryPoints = readdirSync(testsDir)
 	.filter((name) => name.endsWith('.test.ts'))
 	.map((name) => path.join(testsDir, name));
-
-if (entryPoints.length === 0) {
-	process.exit(0);
-}
 
 rmSync(outdir, { recursive: true, force: true });
 

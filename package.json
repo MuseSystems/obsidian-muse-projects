@@ -6,7 +6,9 @@
 	"type": "module",
 	"scripts": {
 		"dev": "node esbuild.config.mjs",
+		"prebuild": "node scripts/bundle-templates.mjs",
 		"build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production",
+		"pretest": "node scripts/bundle-templates.mjs",
 		"test": "tsc -noEmit -skipLibCheck && node scripts/test.mjs",
 		"version": "node version-bump.mjs"
 	},
