@@ -22,10 +22,13 @@ import {
 	normalizeSettings,
 } from './settings';
 import { startTaskListSync } from './taskListSync';
+import { TaskHost } from './taskSurface';
+import { TASK_CARDS_VIEW, TaskCardsBasesView } from './taskCardsView';
 
 export default class MuseProjectsPlugin extends Plugin {
 	settings!: MuseProjectsSettings;
 	clockWatch!: ClockWatch;
+	taskHost!: TaskHost;
 	templateSeedTask: Promise<void> | null = null;
 
 	async onload() {
@@ -136,7 +139,14 @@ export default class MuseProjectsPlugin extends Plugin {
 		});
 		this.clockWatch = new ClockWatch(this);
 		new ClockStatus(this);
+		this.taskHost = new TaskHost(this);
+		this.taskHost.start();
 		this.clockWatch.start();
+		this.registerBasesView(TASK_CARDS_VIEW, {
+			name: 'Task cards',
+			icon: 'layout-grid',
+			factory: (controller, containerEl) => new TaskCardsBasesView(controller, containerEl, this),
+		});
 		this.app.workspace.onLayoutReady(() => {
 			void offerBundledTemplates(this);
 		});

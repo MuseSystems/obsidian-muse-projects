@@ -1,3 +1,321 @@
+body {
+	--msprj-status-backlog: #242424;
+	--msprj-status-active: #2454d6;
+	--msprj-status-blocked: #e11d2e;
+	--msprj-status-done: #1c8c3a;
+	--msprj-status-cancelled: #9aa0a6;
+}
+
+.theme-dark {
+	--msprj-status-backlog: #c6c6c6;
+	--msprj-status-active: #4d74e8;
+	--msprj-status-blocked: #ff5c5c;
+	--msprj-status-done: #3dcc6e;
+	--msprj-status-cancelled: #6b6b6b;
+}
+
+.msprj-task-control {
+	--msprj-status-color: var(--text-muted);
+	color: var(--text-normal);
+	user-select: none;
+}
+
+.msprj-task-control.is-link {
+	display: inline-flex;
+	align-items: baseline;
+	gap: 0.3em;
+	max-width: 100%;
+	vertical-align: baseline;
+	padding: 0 0.15em;
+	border-radius: 0.25em;
+	font: inherit;
+	line-height: inherit;
+}
+
+.msprj-task-control.is-link.is-line {
+	display: flex;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.msprj-task-control.is-link:hover {
+	background: var(--background-modifier-hover);
+}
+
+.msprj-task-control.is-card {
+	display: flex;
+	align-items: flex-start;
+	gap: 0.7em;
+	width: 100%;
+	box-sizing: border-box;
+	margin: 0.2em 0 0.85em;
+	padding: 0.7em 0.9em;
+	border: 1px solid var(--background-modifier-border);
+	border-radius: var(--radius-m);
+	background: var(--background-primary);
+	font-family: var(--font-interface);
+	font-size: var(--font-ui-medium);
+	line-height: var(--line-height-tight);
+}
+
+.msprj-task-control.is-card:hover {
+	border-color: var(--background-modifier-border-hover);
+}
+
+.msprj-task-control.is-card.is-clocked,
+.msprj-task-control.is-card.is-clocked:hover {
+	border-width: 2px;
+	border-color: var(--msprj-status-active);
+}
+
+.msprj-task-control.is-card.is-openable {
+	cursor: pointer;
+}
+
+.markdown-source-view .cm-sizer > .msprj-task-note-card {
+	box-sizing: border-box;
+	width: auto;
+	margin: 0.35em var(--file-margins) 0.85em;
+}
+
+.msprj-task-copy {
+	min-width: 0;
+}
+
+.msprj-task-control.is-card .msprj-task-copy {
+	display: flex;
+	flex: 1 1 auto;
+	flex-direction: column;
+	gap: 0.15em;
+}
+
+button.msprj-task-mark,
+button.msprj-task-title {
+	all: unset;
+	cursor: pointer;
+	font: inherit;
+	color: inherit;
+}
+
+button.msprj-task-mark {
+	box-sizing: border-box;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	flex: 0 0 auto;
+	width: 0.95em;
+	height: 0.95em;
+	border: 1.5px solid var(--msprj-status-color);
+	border-radius: 50%;
+	background: transparent;
+	color: var(--msprj-status-color);
+}
+
+.msprj-task-control.is-card button.msprj-task-mark {
+	width: 1.15em;
+	height: 1.15em;
+	margin-top: 0.2em;
+}
+
+.msprj-task-control.is-link button.msprj-task-mark {
+	align-self: center;
+}
+
+button.msprj-task-mark svg {
+	display: block;
+	width: 70%;
+	height: 70%;
+	pointer-events: none;
+}
+
+button.msprj-task-mark:focus-visible,
+button.msprj-task-title:focus-visible {
+	outline: 2px solid var(--interactive-accent);
+	outline-offset: 1px;
+	border-radius: 50%;
+}
+
+button.msprj-task-title:focus-visible {
+	border-radius: 2px;
+}
+
+.msprj-task-control[data-mark='done'] button.msprj-task-mark {
+	background: var(--msprj-status-color);
+	color: var(--background-primary);
+}
+
+.msprj-task-control[data-mark='unknown'] button.msprj-task-mark {
+	border-style: dashed;
+}
+
+.msprj-task-clock {
+	display: inline-block;
+	margin-left: 0.35em;
+	font-size: 0.85em;
+	line-height: 0;
+	vertical-align: baseline;
+	color: var(--msprj-status-active);
+}
+
+.msprj-task-title {
+	min-width: 0;
+	text-align: left;
+}
+
+.msprj-task-control.is-link .msprj-task-title {
+	font: inherit;
+	color: inherit;
+}
+
+.msprj-task-control.is-card .msprj-task-title {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	font-size: var(--font-ui-large);
+	font-weight: var(--font-medium);
+}
+
+button.msprj-task-title:hover {
+	color: var(--text-accent);
+	text-decoration: underline;
+}
+
+.msprj-task-control.is-card[data-strike='true'] .msprj-task-title {
+	color: var(--text-muted);
+	text-decoration: line-through;
+}
+
+.msprj-task-control.is-card[data-strike='true'] button.msprj-task-title:hover {
+	color: var(--text-accent);
+}
+
+.msprj-task-meta {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.35em;
+	margin-top: 0.35em;
+}
+
+.msprj-task-pill {
+	display: inline-flex;
+	align-items: center;
+	padding: 0.1em 0.45em;
+	border-radius: var(--radius-s);
+	background: var(--background-modifier-hover);
+	color: var(--text-muted);
+	font-size: var(--font-ui-smaller);
+	font-weight: var(--font-normal);
+	line-height: 1.4;
+}
+
+.msprj-task-pill[data-pill='code'] {
+	font-family: var(--font-monospace);
+}
+
+.msprj-task-control.is-link .msprj-task-meta {
+	display: none;
+}
+
+li.msprj-task-link-host {
+	list-style: none;
+}
+
+li.msprj-task-link-host > p {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+.msprj-task-cards {
+	display: flex;
+	flex-direction: column;
+	gap: 0.1em;
+	padding: 0.15em 0 0.4em;
+}
+
+.msprj-task-cards-group {
+	margin: 0.45em 0 0;
+	color: var(--text-muted);
+	font-size: var(--font-ui-small);
+}
+
+button.msprj-task-cards-group {
+	all: unset;
+	display: block;
+	cursor: pointer;
+	margin: 0.45em 0 0;
+	color: var(--text-muted);
+	font-size: var(--font-ui-small);
+}
+
+.msprj-task-cards .msprj-task-control.is-card {
+	margin: 0;
+	padding: 0.15em 0.35em;
+	border-color: transparent;
+	background: transparent;
+	font-size: var(--font-ui-small);
+}
+
+.msprj-task-cards .msprj-task-control.is-card:hover {
+	border-color: transparent;
+	background: var(--background-modifier-hover);
+}
+
+.msprj-task-cards .msprj-task-control.is-card.is-clocked,
+.msprj-task-cards .msprj-task-control.is-card.is-clocked:hover {
+	border-width: 1px;
+	border-color: var(--msprj-status-active);
+	background: transparent;
+}
+
+.msprj-task-cards .msprj-task-control.is-card .msprj-task-title {
+	font-size: var(--font-ui-small);
+	font-weight: var(--font-normal);
+}
+
+.msprj-task-cards .msprj-task-control.is-card button.msprj-task-mark {
+	width: 0.95em;
+	height: 0.95em;
+	margin-top: 0.12em;
+}
+
+.msprj-task-cards .msprj-task-meta {
+	margin-top: 0.1em;
+	gap: 0.25em;
+}
+
+.msprj-task-cards .bases-group-heading {
+	margin-top: 0.35em;
+	padding-bottom: 0.2em;
+	border-bottom: 1px solid var(--background-modifier-border);
+	--bases-group-heading-property-display: none;
+}
+
+.msprj-task-cards-count {
+	margin-left: auto;
+	flex-shrink: 0;
+	color: var(--text-muted);
+	font-size: var(--font-ui-smaller);
+}
+
+.msprj-task-cards-file,
+.msprj-task-cards-empty {
+	font: inherit;
+	color: var(--text-muted);
+	text-align: left;
+}
+
+button.msprj-task-cards-file {
+	all: unset;
+	display: block;
+	cursor: pointer;
+	color: var(--text-normal);
+}
+
+button.msprj-task-cards-file:hover {
+	color: var(--text-accent);
+	text-decoration: underline;
+}
+
 /* Create dialogs. Inputs stay Obsidian Setting controls.
    A snippet targets .msprj-form. */
 .modal.msprj-form {
