@@ -1,4 +1,8 @@
 import { Plugin } from 'obsidian';
+import { ClockStatus } from './clockStatus';
+import { ClockWatch } from './clockWatch';
+import { runClockIn, runClockOut } from './clockFlow';
+import { runEditTime } from './editTimeModal';
 import { scheduleEnsureObjectIds } from './ensureObjectIds';
 import { promptNewOrganization } from './newOrganizationFlow';
 import { runNewProjectFlow } from './newProjectFlow';
@@ -21,6 +25,7 @@ import { startTaskListSync } from './taskListSync';
 
 export default class MuseProjectsPlugin extends Plugin {
 	settings!: MuseProjectsSettings;
+	clockWatch!: ClockWatch;
 	templateSeedTask: Promise<void> | null = null;
 
 	async onload() {
@@ -108,6 +113,30 @@ export default class MuseProjectsPlugin extends Plugin {
 				void runRepairReferences(this.app, this.settings.projectTemplatesPath);
 			},
 		});
+		this.addCommand({
+			id: 'clock-in',
+			name: 'Clock in',
+			callback: () => {
+				void runClockIn(this);
+			},
+		});
+		this.addCommand({
+			id: 'clock-out',
+			name: 'Clock out',
+			callback: () => {
+				void runClockOut(this);
+			},
+		});
+		this.addCommand({
+			id: 'edit-time',
+			name: 'Edit time',
+			callback: () => {
+				void runEditTime(this);
+			},
+		});
+		this.clockWatch = new ClockWatch(this);
+		new ClockStatus(this);
+		this.clockWatch.start();
 		this.app.workspace.onLayoutReady(() => {
 			void offerBundledTemplates(this);
 		});
